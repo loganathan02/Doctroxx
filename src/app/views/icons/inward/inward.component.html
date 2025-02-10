@@ -1,0 +1,161 @@
+<div class="container my-4">
+  <div class="row align-items-center g-3">
+    <!-- Select Supplier -->
+    <div class="col-md-4">
+      <label for="selectType" class="form-label fw-bold">Select Supplier:</label>
+      <select class="form-select custom-input" id="selectType" [(ngModel)]="selectedSupplierId" >
+        <option value="" disabled selected>Select an option</option>
+        <option *ngFor="let supplier of clinic_all_supplier" [value]="supplier._id">
+          {{ supplier.name }}
+
+        </option>
+      </select>
+    </div>
+
+    <!-- Date -->
+    <div class="col-md-2">
+      <label for="date" class="form-label fw-bold">Date:</label>
+      <input type="date" class="form-control custom-input" id="date" [(ngModel)]="selectedDate"  />
+    </div>
+
+    <!-- Invoice Number -->
+    <div class="col-md-2">
+      <label for="invNo" class="form-label fw-bold">Inv No:</label>
+      <input type="text" class="form-control custom-input" id="invNo" [(ngModel)]="invoiceNumber"  />
+    </div>
+
+    <!-- Add Items Button -->
+    <div class="col-md-2 text-center">
+      <button *ngIf="showButton" type="button" (click)="toggleTable()" class="btn custom-input custom-bg custom-color"
+        [disabled]=" !selectedDate || !invoiceNumber">
+        Add Items
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="table-responsive" *ngIf="!showButton">
+  <table class="table table-bordered text-center">
+    <thead>
+      <tr>
+        <th rowspan="2" class="align-middle">Brand</th>
+        <th rowspan="2" class="align-middle">Category</th>
+        <th rowspan="2" class="align-middle">Pro Id</th>
+        <th rowspan="2" class="align-middle">Pro Name</th>
+        <th rowspan="2" class="align-middle">Generic Name</th>
+        <th rowspan="2" class="align-middle">HSN</th>
+        <th rowspan="2" class="align-middle">Unit</th>
+        <th rowspan="2" class="align-middle">Qty</th>
+        <th rowspan="2" class="align-middle">MRP</th>
+        <th rowspan="2" class="align-middle">Rate</th>
+        <th rowspan="2" class="align-middle">GST%</th>
+
+        <th colspan="3">Tax</th>
+        <th rowspan="2" class="align-middle">Total</th>
+        <th rowspan="2" class="align-middle">Action</th>
+      </tr>
+      <tr>
+        <th>IGST</th>
+        <th>CGST</th>
+        <th>SGST</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      <tr>
+        <td><input type="text" class="form-control custom-input custom-inputbox" [(ngModel)]="formData.brand"></td>
+        <td><input type="text" class="form-control custom-input custom-inputbox" [(ngModel)]="formData.category"></td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.proId"></td>
+        <td><input type="text" class="form-control custom-input custom-inputbox" [(ngModel)]="formData.proName"></td>
+        <td><input type="text" class="form-control custom-input custom-inputbox" [(ngModel)]="formData.genericName">
+        </td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.hsn"></td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.mrp"></td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.rate"></td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.unit"></td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.qty"></td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.gst"></td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.igst"></td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.cgst"></td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.sgst"></td>
+        <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.total"></td>
+        <td class="d-flex align-items-center gap-2">
+          <button class="btn btn-success btn-sm" (click)="addProducttableview()">
+            <i class="bi bi-pencil-square"></i> Add
+          </button>
+        </td>
+      </tr>
+
+
+      <tr *ngFor="let product of productList">
+        <td><input type="text" class="form-control custom-inputbox custom-input" [(ngModel)]="product.brand"></td>
+        <td><input type="text" class="form-control custom-inputbox custom-input" [(ngModel)]="product.category"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.proId"></td>
+        <td><input type="text" class="form-control custom-inputbox custom-input" [(ngModel)]="product.proName"></td>
+        <td><input type="text" class="form-control custom-inputbox custom-input" [(ngModel)]="product.genericName"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.hsn"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.unit"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.qty"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.mrp"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.rate"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.gst"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.igst"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.cgst"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.sgst"></td>
+        <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.total"></td>
+        <td class="d-flex align-items-center gap-2">
+          <button (click)="removeProduct(product)">
+            <i class="bi bi-trash text-danger fs-5"></i>
+          </button>
+        </td>
+      </tr>
+
+
+
+
+
+    </tbody>
+  </table>
+</div>
+
+<div class="row" *ngIf="!showButton">
+  <div class="col-md-7">
+  </div>
+  <div class="col-md-5">
+    <table class="table table-bordered text-center" >
+      <thead>
+        <tr>
+          <th class="text-start">Amount Before Tax:</th>
+          <td class="text-center">
+            <input type="text" [(ngModel)]="amountBeforeTax" class="form-control custom-inputbox custom-input mx-auto">
+          </td>
+        </tr>
+        <tr>
+          <th class="text-start">Amount After Tax:</th>
+          <td class="text-center">
+            <input type="text" [(ngModel)]="amountAfterTax" class="form-control custom-inputbox custom-input mx-auto">
+          </td>
+        </tr>
+        <tr>
+          <th class="text-start">Round Off Total:</th>
+          <td class="text-center">
+            <input type="text" [(ngModel)]="roundOffTotal" class="form-control custom-inputbox custom-input mx-auto">
+          </td>
+        </tr>
+        <tr>
+          <th class="text-start">Grand Total:</th>
+          <td class="text-center">
+            <input type="text" [(ngModel)]="grandTotal" class="form-control custom-inputbox custom-input mx-auto">
+          </td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <button class="btn custom-bg custom-color" (click)="addProduct()">Save</button>
+  </div> 

@@ -1,0 +1,317 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-between mb-3">
+        <div class="input-group w-30">
+            <input type="text" class="form-control custom-input" placeholder="Search " aria-label="Search">
+        </div>
+
+        <button class="btn custom-input custom-bg custom-color" type="button" (click)="createvendorpopup(vendorcreatepage)">Add
+            Supplier</button>
+    </div>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sno</th>
+                    <th>Supplier Name</th>
+                    <th>Business</th>
+                    <th>Relation-Since</th>
+                    <th>Type</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let supplier of suppliers; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{supplier.name}}</td>
+                    <td>{{supplier.name}}</td>
+                    <td>{{ supplier.Relationship_since}}</td>
+                    <td>{{supplier.type}}</td>
+                    <td>{{ supplier.email }}</td>
+                    <td>{{ supplier.mobile}}</td>
+                    <td class="text-center">
+                        <i class="i-File-Edit" (click)="Editvendorpopup(Editvendorpage,supplier._id)"></i>
+
+                    </td>
+                </tr>
+                <!-- Additional rows can be added dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <ng-template #vendorcreatepage>
+        <div class="col-md-12">
+            <div style="display: flex;padding: 10px;">
+                <i (click)="closedialog()" class="i-Close-Window"
+                    style="width: 25px; margin-left: auto;font-size:24px"></i>
+            </div>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title mb-4 text-left" style="color: grey;font-size: x-large ">Supplier Registration
+                    </h4>
+
+                    <div class="row g-3">
+                       
+
+                        <div class="itemsdetails">
+                            <h4 style="color: grey; " class="itemsPlaceholder"><strong>Supplier</strong></h4>
+                            <div class="borderContainer">
+                                <div class="row">
+
+
+
+
+
+                                    <div class="col-md-4 position-relative">
+                                        <label for="Category" class="form-label">Type</label>
+                                       
+
+                                        <div>
+                                            <div class="form-check d-inline-block me-3">
+                                                <input 
+                                                    class="form-check-input big-checkbox"
+                                                    type="radio"
+                                                    id="individual"
+                                                    name="userType"
+                                                    value="individual"
+                                                    [(ngModel)]="userType"
+                                                    (change)="logUserType()">
+                                                <label for="individual" class="form-check-label ms-1">Individual</label>
+                                            </div>
+                                            <div class="form-check d-inline-block">
+                                                <input
+                                                    class="form-check-input big-checkbox"
+                                                    type="radio"
+                                                    id="business"
+                                                    name="userType"
+                                                    value="business"
+                                                    [(ngModel)]="userType"
+                                                    (change)="logUserType()">
+                                                <label for="business" class="form-check-label ms-1">Business</label>
+                                            </div>
+                                        </div>
+                                        
+
+                                    </div>
+
+                                    <div class="col-md-4 position-relative">
+                                        <label for="Category" class="form-label">Expense Heads</label>
+                                        <input type="text" class="form-control custom-input"
+                                            placeholder="Search Category" (focus)="showcategoryDropdown = true"
+                                            (blur)="hidecategoryDropdown()" />
+                                        <ul *ngIf="showcategoryDropdown" class="dropdown-menu show custom-dropdown"
+                                            [style.position]="'absolute'" [style.zIndex]="1000" [style.width]="'100%'">
+
+                                            <button class="btn custom-bg custom-color">add New</button>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4 position-relative">
+                                        <label for="Category" class="form-label">Name</label>
+                                        <input type="text" class="form-control custom-input" required
+                                            placeholder="Enter the name" [(ngModel)]= "formData.name">
+
+
+                                    </div>
+
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-4 position-relative">
+                                        <label for="Category" class="form-label">Brand</label>
+                                        <input type="text" class="form-control custom-input"
+                                            placeholder="selectbrand">
+
+
+
+                                    </div>
+                                    <div class="col-md-4 position-relative">
+                                        <label for="Category" class="form-label">Category</label>
+                                        <input type="text" class="form-control custom-input"
+                                            placeholder="select category">
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="productdetails">
+                            <h4 style="color: grey; "><strong>Contact</strong></h4>
+                            <div class="borderContainer">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="mobile" class="form-label">Mobile</label>
+                                        <input type="text" placeholder="Enter the Mobile"class="form-control custom-input" [(ngModel)]="formData.mobile" id="mobile" maxlength="10">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="productid" class="form-label">Email</label>
+                                        <input type="text" required  placeholder="Enter the Email" class="form-control custom-input" [(ngModel)]="formData.email" id="serialno">
+                                    </div>
+                                    
+                                    
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" placeholder="Enter the Address" class="form-control custom-input" [(ngModel)]="formData.address" id="address">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="productid" class="form-label">State</label>
+                                        <input type="text"placeholder="Entaer the State" class="form-control custom-input" [(ngModel)]="formData.state" id="serialno">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="productid" class="form-label">Pincode</label>
+                                        <input type="text" placeholder="Enter the Pincode"class="form-control custom-input" [(ngModel)]="formData.pincode" id="serialno">
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="amounttdetails">
+                            <h4 style="color: grey; " class="amountPlaceholder"><strong>Tax</strong></h4>
+                            <div class="borderContainer">
+                                <div class="row">
+
+                                <div class="col-md-6">
+                                    <label for="serialno" class="form-label">Pan No</label>
+                                    <input type="text" placeholder="Enter the pan No" class="form-control custom-input" [(ngModel)]="formData.panNo"id="serialno">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="serialno" class="form-label">Gst No</label>
+                                    <input type="text" placeholder="Enter the Gst No" class= " form-control custom-input" [(ngModel)]="formData.gstNo" id="serialno">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        
+                        <div class="col-md-12 text-center mt-4">
+                            <button type="submit" class="btn custom-bg custom-color btn-rounded" (click)="create_supplier()" id="productsave">Save</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+    <ng-template #Editvendorpage>
+        <div class="col-md-12">
+        <div style="display: flex;padding: 10px;">
+        <i (click)="closeditdialog()" class="i-Close-Window"
+        style="width: 25px; margin-left: auto;font-size:24px"></i>
+        </div>
+        <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+        <h4 class="card-title mb-4 text-left" style="color: grey;font-size: x-large ">Edit Supplier
+        </h4>
+        
+        <div class="row g-3">
+        <div class="itemsdetails">
+        <h4 style="color: grey; " 
+       class="itemsPlaceholder"><strong>Supplier</strong></h4>
+        <div class="borderContainer">
+        <div class="row">
+        <div class="col-md-4 position-relative">
+        <label for="Category" class="form-label">Type</label>
+        <div>
+        <div class="form-check d-inline-block me-3">
+        <input class="form-check-input big-checkbox" type="radio"
+        id="individual" name="userType" value="individual"
+        [(ngModel)]="editvendorsdata.type">
+        <label for="individual" class="form-check-label ms1">Individual</label>
+        </div>
+        <div class="form-check d-inline-block">
+        <input class="form-check-input big-checkbox" type="radio" 
+       id="business"
+        name="userType" value="business" 
+       [(ngModel)]="editvendorsdata.type">
+        <label for="business" class="form-check-label ms-1">Business</label>
+        </div>
+        </div>
+        </div>
+        <div class="col-md-4 position-relative">
+        <label for="Category" class="form-label">Name</label>
+        <input type="text" class="form-control custom-input"
+        [(ngModel)]="editvendorsdata.name" >
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="productdetails">
+        <h4 style="color: grey; "><strong>Contact</strong></h4>
+        <div class="borderContainer">
+        <div class="row">
+        <div class="col-md-6">
+        <label for="serialno" class="form-label">Mobile</label>
+        <input type="text" placeholder="Enter the Mobile"
+        class="form-control custom-input" 
+        id="serialno" [(ngModel)]="editvendorsdata.mobile" > 
+        </div>
+        <div class="col-md-6">
+        <label for="productid" class="form-label">Email</label>
+        <input type="text" placeholder="Enter the Email"
+        class="form-control custom-input" 
+        id="serialno" [(ngModel)]="editvendorsdata.email">
+        </div>
+        </div>
+        <div class="row mt-3">
+        <div class="col-md-6">
+        <label for="serialno" class="form-label">Address</label>
+        <input type="text" placeholder="Enter the Address"
+        class="form-control custom-input" 
+        id="serialno" [(ngModel)]="editvendorsdata.address">
+        </div>
+        <div class="col-md-3">
+        <label for="productid" class="form-label">State</label>
+        <input type="text" placeholder="Entaer the State"
+        class="form-control custom-input" 
+        id="serialno" [(ngModel)]="editvendorsdata.state">
+        </div>
+        <div class="col-md-3">
+        <label for="productid" class="form-label">Pincode</label>
+        <input type="text" placeholder="Enter the Pincode"
+        class="form-control custom-input" 
+        id="serialno" [(ngModel)]="editvendorsdata.pincode">
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="amounttdetails">
+        <h4 style="color: grey; " class="amountPlaceholder"><strong>Tax</strong></h4>
+        <div class="borderContainer">
+        <div class="row">
+        <div class="col-md-6">
+        <label for="serialno" class="form-label">Pan No</label>
+        <input type="text" placeholder="Enter the pan No"
+        class="form-control custom-input" 
+        id="serialno" [(ngModel)]="editvendorsdata.pan">
+        </div>
+        <div class="col-md-6">
+        <label for="serialno" class="form-label">Gst No</label>
+        <input type="text" placeholder="Enter the Gst No"
+        class=" form-control custom-input" 
+        id="serialno" [(ngModel)]="editvendorsdata.gstno">
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="col-md-12 text-center mt-4">
+        <button type="submit" class="btn custom-bg custom-color btn-rounded" 
+       (click)="editvendorsdatas(editvendorsdata._id,editvendorsdata)">Update</button>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    </ng-template>

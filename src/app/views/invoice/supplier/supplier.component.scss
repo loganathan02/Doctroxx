@@ -1,0 +1,32 @@
+.borderContainer {
+    position: relative;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 5px;
+  }
+  
+  // .custom-color {
+  //   color: white; /* Text color */
+  // }
+  // .custom-bg {
+  //   background-color: #00BAB3; /* Background color */
+  // }
+  
+  // .custom-input:hover {
+  //   border-color: #00BAB3;  /* Border color on hover */
+  // }
+  
+  // .custom-input:focus {
+  //   border-color: #00BAB3;  /* Focused border color */
+  //   box-shadow: 0 0 0 0.25rem rgba(0, 186, 179, 0.25);  /* Optional: adds a glow effect on focus */
+  // }
+  
+
+  .big-checkbox {
+    width: 1.5rem; /* Increases width */
+    height: 1.5rem; /* Increases height */
+    cursor: pointer; /* Adds pointer cursor for better UX */
+}
+
+  

@@ -1,0 +1,204 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-between mb-3">
+        <div class="input-group w-30">
+            <input type="text" class="form-control custom-input" placeholder="Search a product..." aria-label="Search">
+        </div>
+        
+        <button class="btn btn custom-color custom-bg" type="button" (click)="openproductpopup(productpage)" >Add Product</button>
+    </div>
+    
+    <!-- Product Table -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Product Name</th>
+                <th>product ID</th>
+                <th>MRP</th>
+                <th>Discount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Sample Product</td>
+                <td>Dolo1nm87</td>
+                <td>50</td>
+                <td>20</td>
+                
+                <td>
+                    <i class="i-File-Edit"></i>
+                    
+                </td>
+            </tr>
+            <!-- Additional rows can be added dynamically -->
+        </tbody>
+    </table>
+
+<ng-template #productpage>
+    <div class="col-md-12">
+        <div style="display: flex;padding: 10px;">
+            <i (click)="closedialog()" class="i-Close-Window" style="width: 25px; margin-left: auto;font-size:24px"></i>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title mb-4 text-left" style="color: grey;font-size: x-large ">Add Product Details</h4>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="brand" class="form-label ">Select Supplier</label>
+                        <select class="form-select custom-input" >
+                            <option>
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="itemsdetails">
+                        <h4 style="color: grey; " class="itemsPlaceholder"><strong>Items</strong></h4>
+                        <div class="borderContainer">
+                            <div class="row">
+
+
+                                <div class="col-md-4 position-relative" *ngIf="singlebrand">
+                                    <label for="brand" class="form-label">Select Brand</label>
+
+                                    <input type="text" class="form-control custom-input" placeholder="Search Brand"
+                                        
+                                        (focus)="showDropdown = true" (blur)="hidebrandDropdown()" />
+
+                                  
+                                </div>
+
+
+
+                                <div *ngIf="!singlebrand" class="col-md-4 position-relative">
+                                    <label for="brand" class="form-label">Select Brand</label>
+
+                                    <input type="text" class="form-control custom-input" placeholder="Search Brand"
+                                        (focus)="showDropdown = true" (blur)="hidebrandDropdown()" />
+
+                                    <ul *ngIf="showDropdown" class="dropdown-menu show custom-dropdown"
+                                        [style.position]="'absolute'" [style.zIndex]="1000" [style.width]="'100%'">
+                                        
+                                        <button class="btn btn-primary" >add New</button>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-4 position-relative">
+                                    <label for="Category" class="form-label">Select Category</label>
+                                    <input type="text" class="form-control custom-input" placeholder="Search Model"
+                                        >
+                                        
+                                        <button class="btn btn-primary" >add New</button>
+                                </div>
+
+                                <div class="col-md-4 position-relative">
+                                    <label for="Category" class="form-label">Generic Name</label>
+                                    <input type="text" class="form-control custom-input" placeholder="Generic name"
+                                        
+                                     />
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="productdetails">
+                        <h4 style="color: grey; " class="productPlaceholder"><strong>product</strong></h4>
+                        <div class="borderContainer">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="serialno" class="form-label">Product S.No</label>
+                                    <input type="text" class="form-control custom-input" id="serialno" >
+                                      
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="productid" class="form-label">Part Code</label>
+                                    <input type="text" class="form-control custom-input" id="serialno"
+                                    >
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="productid" class="form-label">Product ID</label>
+                                    <input type="text" class="form-control custom-input" id="productid"
+                                        (blur)="checkFullProductId(productobj.product_id)">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="product_name" class="form-label">Product Name</label>
+                                    <input type="text" class="form-control custom-input" id="product_name"
+                                        >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="amounttdetails">
+                        <h4 style="color: grey; " class="amountPlaceholder"><strong>Amount</strong></h4>
+                        <div class="borderContainer">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="hsn_no" class="form-label">HSN Code</label>
+                                    <input type="text" maxlength="6" class="form-control custom-input" id="hsn_no" >
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="category" class="form-label">Select GST</label>
+                                    <select class="form-select">
+                                        <option [ngValue]="'28'">5%</option>
+                                        <option [ngValue]="'18'">18%</option>
+                                        <option [ngValue]="'28'">28%</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="mrp" class="form-label">MRP</label>
+                                    <input type="number" class="form-control custom-input" id="mrp" 
+                                        (focus)="clearOnFocus('MRP')" (blur)="formatOnBlur('MRP')">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="maxDiscount" class="form-label">Max Discount%</label>
+                                    <input type="text" class="form-control custom-input" id="maxDiscount" maxlength="2"
+                                       >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="measurementdetails">
+                        <h4 style="color: grey; " class="measurementPlaceholder"><strong>Measurement</strong></h4>
+                        <div class="borderContainer">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="qty" class="form-label">Quantity</label>
+                                    <input type="number" class="form-control custom-input" id="qty"  
+                                    (focus)="clearOnFocus('qty')" (blur)="formatOnBlur('qty')">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="rol" class="form-label">Reorder Level</label>
+                                    <input type="number" class="form-control custom-input" id="rol" 
+                                        (focus)="clearOnFocus('ROL')" (blur)="formatOnBlur('ROL')">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="roq" class="form-label">Reorder Quantity</label>
+                                    <input type="number" class="form-control custom-input" id="roq"
+                                        (focus)="clearOnFocus('ROQ')" (blur)="formatOnBlur('ROQ')">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control custom-input" id="description" rows="4"
+                           ></textarea>
+                    </div>
+                    <div class="col-md-12 text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-rounded" id="productsave"
+                            >Save</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </ng-template>
+
+</div>
