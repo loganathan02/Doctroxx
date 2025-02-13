@@ -46,6 +46,9 @@ body {
   .custom-bg {
     background-color: #636AE8; /* Background color */
   }
+  .custom-color-text{
+    color: #636AE8;
+  }
   
   
   .custom-input:focus {

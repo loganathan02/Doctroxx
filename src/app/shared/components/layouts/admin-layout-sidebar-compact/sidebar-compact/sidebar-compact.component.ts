@@ -20,7 +20,15 @@ export class SidebarCompactComponent implements OnInit {
 
   constructor(public router: Router, public navService: NavigationService) {}
 
+  clinicname :any;
+
   ngOnInit() {
+    let clinic_name = localStorage.getItem("clinic_name")
+    console.log("clinic name sode bar",clinic_name);
+    this.clinicname = clinic_name
+    console.log(this.clinicname);
+    
+
     this.updateSidebar();
     // CLOSE SIDENAV ON ROUTE CHANGE
     this.router.events

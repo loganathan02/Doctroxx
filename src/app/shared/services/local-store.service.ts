@@ -42,6 +42,8 @@ export class LocalStoreService {
     let clinic_id = localStorage.getItem('id');
     let companyid = localStorage.getItem("logincompanyid");
     console.log(" testing login clinic_id", login_clinic_id);
+   
+    
     
 
 
@@ -52,7 +54,10 @@ export class LocalStoreService {
   }
 
   get_supplier(){
+    let clinic_name = localStorage.getItem("clinic_name")
+    console.log("clinic name",clinic_name);
     let login_clinic_id = localStorage.getItem('login_clinic_id');
+  
 
     return this.http.get<any>(`${environment.apiUrl}/supllier/suppliers?login_clinic_id=${login_clinic_id}`)
     .pipe(map(responsedata => {
@@ -99,29 +104,29 @@ export class LocalStoreService {
   
     }
 
-    addProduct(productList,amountBeforeTax,amountAfterTax,roundOffTotal,grandTotal,login_clinic_id,selectedSupplierId,amounts){
-    return this.http.post<any>(`${environment.apiUrl}/product/addproduct`, {productList:productList, amountBeforeTax:amountBeforeTax,amountAfterTax:amountAfterTax, roundOffTotal:roundOffTotal, grandTotal:grandTotal,login_clinic_id:login_clinic_id,
-      supplierId:selectedSupplierId, amounts:amounts})
-    .pipe(map(responsedata => {
 
-      // if (responsedata.status === 200) {
-        this.toastr.success('Updated successfully!', 'Success');
-        this.toastr.success(' product added successfully!', 'Success', {
+    addProduct(productList,amountBeforeTax,amountAfterTax,roundOffTotal,grandTotal,login_clinic_id,selectedSupplierId,amounts,selectedSupplierName,selectedSupplierMobile){
+      console.log("selected",selectedSupplierName);
+      
+    return this.http.post<any>(`${environment.apiUrl}/product/addproduct`, {productList:productList, amountBeforeTax:amountBeforeTax,amountAfterTax:amountAfterTax, roundOffTotal:roundOffTotal, grandTotal:grandTotal,login_clinic_id:login_clinic_id,
+      supplierId:selectedSupplierId, amounts:amounts, selectedSupplierName:selectedSupplierName,supplierMobile:selectedSupplierMobile})
+    .pipe(map(responsedata => {
+      // if (responsedata.statusCode === 200) {
+        this.toastr.success(' Product Added successfully!', 'Success', {
         timeOut: 3000, 
         positionClass: 'toast-top-right', 
         progressBar: true
         });
-        // Refresh the page after the successful update
         // window.location.reload();
         // } else {
-        this.toastr.error('Failed to update supplier details', 'Error');
+        // this.toastr.error('Failed to update supplier details', 'Error');
         // }
       return responsedata
     }))
     }
 
     get_selected_supplier(selectedSupplierId){
-      return this.http.get<any>(`${environment.apiUrl}/supllier/selected_supplier?selectedSupplierId=${selectedSupplierId}`)
+      return this.http.get<any>(`${environment.apiUrl}/product/selected_supplier?selectedSupplierId=${selectedSupplierId}`)
       .pipe(map(responsedata => {
         return responsedata
       }))

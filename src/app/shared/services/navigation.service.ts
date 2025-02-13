@@ -65,7 +65,7 @@ export class NavigationService {
         {
 
             name: 'Master',
-                    description: 'supplier',
+                    // description: 'supplier',
                     type: 'dropDown',
                     icon: 'i-Administrator',
                     sub: [
@@ -91,7 +91,7 @@ export class NavigationService {
                     type: 'dropDown',
                     icon: 'i-Library',
                     sub: [
-                        { icon: 'bi bi-box-seam', name: 'Inward', state: 'icons/inward', type: 'link' },
+                        { icon: 'bi bi-arrow-down', name: 'Inward', state: 'icons/inward', type: 'link' },
                        
                     ]
         }

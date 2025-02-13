@@ -3,7 +3,7 @@
     <!-- Select Supplier -->
     <div class="col-md-4">
       <label for="selectType" class="form-label fw-bold">Select Supplier:</label>
-      <select class="form-select custom-input" id="selectType" [(ngModel)]="selectedSupplierId" >
+      <select class="form-select custom-input" id="selectType" [(ngModel)]="selectedSupplierId"  (change)="onSupplierChange()">
         <option value="" disabled selected>Select an option</option>
         <option *ngFor="let supplier of clinic_all_supplier" [value]="supplier._id">
           {{ supplier.name }}
@@ -71,8 +71,7 @@
         <td><input type="text" class="form-control custom-input custom-inputbox" [(ngModel)]="formData.category"></td>
         <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.proId"></td>
         <td><input type="text" class="form-control custom-input custom-inputbox" [(ngModel)]="formData.proName"></td>
-        <td><input type="text" class="form-control custom-input custom-inputbox" [(ngModel)]="formData.genericName">
-        </td>
+        <td><input type="text" class="form-control custom-input custom-inputbox" [(ngModel)]="formData.genericName"></td>
         <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.hsn"></td>
         <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.mrp"></td>
         <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.rate"></td>
@@ -84,7 +83,7 @@
         <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.sgst"></td>
         <td><input type="text" class="form-control custom-input custom-smallinputbox" [(ngModel)]="formData.total"></td>
         <td class="d-flex align-items-center gap-2">
-          <button class="btn btn-success btn-sm" (click)="addProducttableview()">
+          <button class="btn custom-input custom-bg custom-color btn-sm"  (click)="validateAndAddProduct()" >
             <i class="bi bi-pencil-square"></i> Add
           </button>
         </td>
@@ -109,7 +108,8 @@
         <td><input type="text" class="form-control custom-smallinputbox custom-input" [(ngModel)]="product.total"></td>
         <td class="d-flex align-items-center gap-2">
           <button (click)="removeProduct(product)">
-            <i class="bi bi-trash text-danger fs-5"></i>
+            <!-- <i class="bi bi-trash text-danger fs-5"></i> -->
+            <i class="bi bi-trash fs-1"></i> 
           </button>
         </td>
       </tr>
@@ -157,5 +157,5 @@
   </div>
 
   <div class="d-flex justify-content-end">
-    <button class="btn custom-bg custom-color" (click)="addProduct()">Save</button>
+    <button class="btn custom-input custom-bg custom-color" (click)="addProduct()">Save</button>
   </div> 
